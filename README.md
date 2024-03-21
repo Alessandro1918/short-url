@@ -11,7 +11,7 @@ Encurtador de URLs. Crie uma URL customizada que redirecione para outra página.
 - [PostgreSQL](https://www.postgresql.org)
 - [Redis](https://redis.io)
 
-- ## 🧊 Cool features:
+## 🧊 Cool features:
 - URLs originais e reduzidas salvas em base de dados Postgres;
 - Métricas de acesso salvas em base de dados Redis;
 - Bases de dados rodando localmente em containers Docker;

@@ -1,1 +1,14 @@
-GET http://localhost:4000
+###
+POST http://localhost:4000/api/links
+Content-Type: application/json
+
+{
+  "code": "google",
+  "url": "https://google.com.br"
+}
+
+###
+GET http://localhost:4000/api/links
+
+###
+GET http://localhost:4000/google

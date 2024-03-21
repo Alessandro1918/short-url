@@ -1,4 +1,5 @@
 ###
+//Create a new shortened url link in the db
 POST http://localhost:4000/api/links
 Content-Type: application/json
 
@@ -8,7 +9,13 @@ Content-Type: application/json
 }
 
 ###
+//List all data from the db
 GET http://localhost:4000/api/links
 
 ###
-GET http://localhost:4000/google
+//Get "shortLink", redirect to "originalUrl"
+GET http://localhost:4000/rocketseat
+
+###
+//Get access metrics
+GET http://localhost:4000/api/metrics

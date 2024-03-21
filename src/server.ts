@@ -2,6 +2,7 @@ import fastify from "fastify"
 import { z } from "zod"
 import postgres from "postgres"
 import { pg_db } from "./lib/postgres"
+import { redis } from "./lib/redis"
 
 const PORT = 4000
 const app = fastify()
@@ -70,8 +71,30 @@ app.get("/:code", async (request, reply) => {
 
   const link = result[0]
 
+  await redis.zIncrBy("metrics", 1, String(link.id))
+
   return reply.redirect(301, link.original_url)
 })
+
+//Get access metrics
+app.get("/api/metrics", async () => {
+  //https://redis.io/commands/zrange/
+  const result = await redis.zRangeByScoreWithScores("metrics", 0, 50)
+
+  const metrics = result
+    //Order by DEC score:
+    .sort((a, b) => b.score - a.score)
+    //Remap obj keys from "value" (id), "score" to "shortLinkId", "clicks":
+    .map(item => {
+      return {
+        shortLinkId: Number(item.value),
+        clicks: item.score,
+      }
+    })
+
+  return metrics
+})
+
 
 app
   .listen({port: PORT})
